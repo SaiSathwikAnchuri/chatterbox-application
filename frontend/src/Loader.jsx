@@ -1,22 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Loader = () => {
-  return (
-    <StyledWrapper>
-      <div className="container">
-        <div className="loader">
-          <div className="crystal" />
-          <div className="crystal" />
-          <div className="crystal" />
-          <div className="crystal" />
-          <div className="crystal" />
-          <div className="crystal" />
-        </div>
+const Loader = () => (
+  <StyledWrapper>
+    <div className="container">
+      <div className="loader">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div
+            key={index}
+            className="crystal"
+            style={{
+              background: `linear-gradient(45deg, ${getGradient(index)})`,
+              animationDelay: `${index * 0.3}s`,
+            }}
+          />
+        ))}
       </div>
-    </StyledWrapper>
-  );
-}
+    </div>
+  </StyledWrapper>
+);
+
+const getGradient = (index) => {
+  const gradients = [
+    "#003366, #336699",
+    "#003399, #3366cc",
+    "#0066cc, #3399ff",
+    "#0099ff, #66ccff",
+    "#33ccff, #99ccff",
+    "#66ffff, #ccffff",
+  ];
+  return gradients[index];
+};
 
 const StyledWrapper = styled.div`
   .container {
@@ -74,35 +88,6 @@ const StyledWrapper = styled.div`
       opacity: 0.8;
     }
   }
-
-  .crystal:nth-child(1) {
-    background: linear-gradient(45deg, #003366, #336699);
-    animation-delay: 0s;
-  }
-
-  .crystal:nth-child(2) {
-    background: linear-gradient(45deg, #003399, #3366cc);
-    animation-delay: 0.3s;
-  }
-
-  .crystal:nth-child(3) {
-    background: linear-gradient(45deg, #0066cc, #3399ff);
-    animation-delay: 0.6s;
-  }
-
-  .crystal:nth-child(4) {
-    background: linear-gradient(45deg, #0099ff, #66ccff);
-    animation-delay: 0.9s;
-  }
-
-  .crystal:nth-child(5) {
-    background: linear-gradient(45deg, #33ccff, #99ccff);
-    animation-delay: 1.2s;
-  }
-
-  .crystal:nth-child(6) {
-    background: linear-gradient(45deg, #66ffff, #ccffff);
-    animation-delay: 1.5s;
-  }`;
+`;
 
 export default Loader;
